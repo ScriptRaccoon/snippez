@@ -2,8 +2,12 @@
 	let { data } = $props()
 </script>
 
-<h1>SvelteKit GitHub OAuth Example</h1>
+<svelte:head>
+	<title>SvelteKit GitHub OAuth Example</title>
+</svelte:head>
 
-<p>
-	user = {JSON.stringify(data.user)}
-</p>
+<header>
+	<h1>SvelteKit GitHub OAuth Example</h1>
+</header>
+
+<p>Welcome, {data.user.username} 👋</p>

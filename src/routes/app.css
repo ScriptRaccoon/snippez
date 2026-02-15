@@ -1,0 +1,32 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+body {
+	background-color: #222;
+	color: white;
+	font-family:
+		'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
+		Verdana, sans-serif;
+	line-height: 1.5;
+	font-size: 1.125rem;
+}
+
+a {
+	color: inherit;
+}
+
+h1 {
+	color: yellow;
+	font-weight: 600;
+}
+
+p {
+	margin-block: 1rem;
+}
+
+header {
+	margin-block: 2rem;
+}
