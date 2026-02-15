@@ -1,18 +1,36 @@
+/* GLOBAL STUFF */
+
 * {
 	margin: 0;
 	padding: 0;
 	box-sizing: border-box;
 }
 
+:root {
+	--bg-color: #111;
+	--code-bg-color: #000;
+	--font-color: #fff;
+	--accent-color: yellow;
+	--outline-color: #444;
+	--input-bg-color: #222;
+	--button-color: #315b7b;
+	--error-color: #f52121;
+	--secondary-font-color: #aaa;
+	--tag-color: #2a772a;
+}
+
 body {
-	background-color: #222;
-	color: white;
+	background-color: var(--bg-color);
+	color: var(--font-color);
 	font-family:
 		'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva,
 		Verdana, sans-serif;
 	line-height: 1.5;
 	font-size: 1.125rem;
+	padding-bottom: 2rem;
 }
+
+/* ELEMENTS */
 
 a {
 	color: inherit;
@@ -20,23 +38,95 @@ a {
 }
 
 h1 {
-	color: yellow;
-	font-weight: 600;
+	color: var(--accent-color);
+	font-weight: 500;
+}
+
+h2 {
+	font-weight: 500;
+	margin-bottom: 1rem;
 }
 
 p {
 	margin-block: 1rem;
 }
 
-header {
-	margin-block: 1rem 2rem;
+header:has(h1) {
+	margin-block: 1.5rem;
 }
 
-label {
-	display: block;
-}
+/* INTERACTIVE ELEMENTS */
 
-input[type='text'],
+input,
+button,
+select,
 textarea {
+	color: inherit;
+	font: inherit;
+	background: none;
+	border: none;
+}
+
+:is(input, button, select, textarea, a):focus-visible {
+	outline: 1px solid var(--font-color);
+}
+
+button:not(:disabled) {
+	cursor: pointer;
+}
+
+.button {
+	background-color: var(--button-color);
+	padding: 0.2rem 0.8rem;
+	border-radius: 0.2rem;
+}
+
+a.button {
+	text-decoration: none;
+	display: inline-block;
+}
+
+.label {
+	display: block;
+	font-size: 0.875rem;
+}
+
+.form-group {
+	margin-bottom: 1rem;
+}
+
+.input {
 	width: 100%;
+	padding: 0.2rem 0.4rem;
+	border-radius: 0.2rem;
+	background-color: var(--input-bg-color);
+	border: 1px solid var(--outline-color);
+}
+
+textarea.input {
+	resize: vertical;
+}
+
+input[type='checkbox'] {
+	accent-color: var(--button-color);
+}
+
+/* UTILS */
+
+.error {
+	font-weight: 500;
+	color: var(--error-color);
+}
+
+.lucide {
+	vertical-align: text-bottom;
+}
+
+.language {
+	background-color: var(--tag-color);
+	display: inline-block;
+	font-family: monospace;
+	padding: 0.1rem 0.4rem;
+	border-radius: 0.2rem;
+	font-size: 0.875rem;
 }

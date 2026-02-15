@@ -3,7 +3,7 @@
 	import favicon from '$lib/assets/favicon.svg'
 	import Nav from '$lib/components/Nav.svelte'
 
-	let { children } = $props()
+	let { data, children } = $props()
 </script>
 
 <svelte:head>
@@ -11,7 +11,9 @@
 	<link rel="icon" href={favicon} />
 </svelte:head>
 
-<Nav />
+{#if data.user}
+	<Nav />
+{/if}
 
 <div class="container">
 	{@render children()}
@@ -21,6 +23,6 @@
 	.container {
 		max-width: 600px;
 		margin-inline: auto;
-		padding-inline: 1rem;
+		padding-inline: 0.75rem;
 	}
 </style>

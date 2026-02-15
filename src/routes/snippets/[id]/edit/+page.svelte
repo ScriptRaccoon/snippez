@@ -4,22 +4,34 @@
 	let { data, form } = $props()
 </script>
 
-<h1>Edit Snippet</h1>
+<header>
+	<h1>Edit Snippet</h1>
+</header>
 
 <form action="?/update" method="POST" use:enhance>
-	<div>
-		<label for="title">Title</label>
-		<input type="text" name="title" id="title" required value={data.snippet.title} />
-	</div>
-
-	<div>
-		<label for="description">Description</label>
-		<textarea name="description" id="description">{data.snippet.description}</textarea>
-	</div>
-
-	<div>
-		<label for="language">Language</label>
+	<div class="form-group">
+		<label class="label" for="title">Title</label>
 		<input
+			class="input"
+			type="text"
+			name="title"
+			id="title"
+			required
+			value={data.snippet.title}
+		/>
+	</div>
+
+	<div class="form-group">
+		<label class="label" for="description">Description</label>
+		<textarea class="input" name="description" id="description"
+			>{data.snippet.description}</textarea
+		>
+	</div>
+
+	<div class="form-group">
+		<label class="label" for="language">Language</label>
+		<input
+			class="input"
 			type="text"
 			name="language"
 			id="language"
@@ -28,8 +40,8 @@
 		/>
 	</div>
 
-	<div>
-		<label for="is_public">Public</label>
+	<div class="form-group">
+		<label class="label" for="is_public">Public</label>
 		<input
 			type="checkbox"
 			name="is_public"
@@ -38,22 +50,27 @@
 		/>
 	</div>
 
-	<div>
-		<label for="content">Content</label>
-		<textarea name="content" id="content" required>{data.snippet.content}</textarea>
+	<div class="form-group">
+		<label class="label" for="content">Content</label>
+		<textarea class="input" name="content" id="content" required
+			>{data.snippet.content}</textarea
+		>
 	</div>
 
-	<div>
-		<button>Update</button>
+	<div class="actions">
+		<button class="button">Update</button>
+		<button class="button" formaction="?/delete"> Delete snippet</button>
 	</div>
-</form>
-
-<h2>Danger Zone</h2>
-
-<form method="POST" action="?/delete" use:enhance>
-	<button>Delete snippet</button>
 </form>
 
 {#if form?.error}
-	<p>{form.error}</p>
+	<p class="error">{form.error}</p>
 {/if}
+
+<style>
+	.actions {
+		display: flex;
+		flex-direction: row-reverse;
+		justify-content: space-between;
+	}
+</style>
