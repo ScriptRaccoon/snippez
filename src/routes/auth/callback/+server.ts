@@ -49,13 +49,14 @@ export const GET = async (event) => {
 		login: github_user.login
 	}
 
-	const token = jwt.sign(payload, JWT_SECRET)
+	const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
 
 	event.cookies.set('jwt', token, {
 		path: '/',
 		httpOnly: true,
 		sameSite: 'lax',
-		secure: true
+		secure: true,
+		maxAge: 60 * 60 * 24
 	})
 
 	event.cookies.delete('oauth_state', { path: '/' })

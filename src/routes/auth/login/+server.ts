@@ -9,7 +9,8 @@ export const GET = async (event) => {
 		path: '/',
 		httpOnly: true,
 		sameSite: 'lax',
-		secure: true
+		secure: true,
+		maxAge: 60 * 5
 	})
 
 	const params = new URLSearchParams({
