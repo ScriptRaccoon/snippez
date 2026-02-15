@@ -16,6 +16,7 @@ body {
 
 a {
 	color: inherit;
+	text-underline-offset: 2px;
 }
 
 h1 {
@@ -28,5 +29,5 @@ p {
 }
 
 header {
-	margin-block: 2rem;
+	margin-block: 1rem 2rem;
 }
