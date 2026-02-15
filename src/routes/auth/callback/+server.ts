@@ -1,4 +1,6 @@
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET } from '$env/static/private'
+import { query } from '$lib/server/db'
+import type { GitHubUser, JWTPayload } from '$lib/types'
 import { error, redirect } from '@sveltejs/kit'
 import jwt from 'jsonwebtoken'
 
@@ -42,11 +44,28 @@ export const GET = async (event) => {
 
 	if (!user_res.ok) error(400, 'Token exchange failed')
 
-	const github_user = await user_res.json()
+	const github_user = (await user_res.json()) as GitHubUser
 
-	const payload = {
-		id: github_user.id,
-		login: github_user.login
+	const { id, login, email } = github_user
+
+	const sql = `
+		INSERT INTO users
+			(github_id, username, email)
+		VALUES (?, ?, ?)
+		ON CONFLICT (github_id) DO UPDATE SET
+			username = excluded.username,
+			email = excluded.email
+		RETURNING id`
+
+	const { rows, err } = await query<{ id: number }>(sql, [id, login, email])
+
+	if (err || !rows.length) error(500, 'Database error')
+
+	const user_id = rows[0].id
+
+	const payload: JWTPayload = {
+		id: user_id,
+		username: github_user.login
 	}
 
 	const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })

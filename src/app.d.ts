@@ -1,13 +1,13 @@
 // See https://svelte.dev/docs/kit/types#app.d.ts
 // for information about these interfaces
 
-import type { User } from '$lib/types'
+import type { JWTPayload } from '$lib/types'
 
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
-			user: User
+			user: JWTPayload
 		}
 		// interface PageData {}
 		// interface PageState {}

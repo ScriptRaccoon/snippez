@@ -1,0 +1,17 @@
+import { DB_AUTH_TOKEN, DB_URL } from '$env/static/private'
+import { createClient, LibsqlError } from '@libsql/client'
+
+export const db = createClient({
+	url: DB_URL,
+	authToken: DB_AUTH_TOKEN
+})
+
+export async function query<T = unknown>(stmt: string, args?: any[]) {
+	try {
+		const { rows } = args ? await db.execute(stmt, args) : await db.execute(stmt)
+		return { rows: rows as T[], err: null }
+	} catch (err) {
+		console.error(err)
+		return { rows: null, err: err as LibsqlError }
+	}
+}
