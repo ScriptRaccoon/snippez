@@ -1,22 +1,5 @@
 import { query } from '$lib/server/db'
-import { error, fail, redirect } from '@sveltejs/kit'
-
-export const load = async (event) => {
-	const user = event.locals.user
-	if (!user) redirect(307, '/auth/login')
-
-	const sql = `
-        SELECT username, email
-        FROM users
-        WHERE id = ?`
-
-	const { rows, err } = await query<{ username: string; email: string }>(sql, [user.id])
-	if (err || !rows.length) error(500, 'Database error')
-
-	const { username, email } = rows[0]
-
-	return { username, email }
-}
+import { fail, redirect } from '@sveltejs/kit'
 
 export const actions = {
 	delete: async (event) => {

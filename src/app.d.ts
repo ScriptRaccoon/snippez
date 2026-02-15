@@ -10,7 +10,7 @@ declare global {
 			user?: JWTPayload
 		}
 		interface PageData {
-			user: JWTPayload
+			user?: JWTPayload
 		}
 		// interface PageState {}
 		// interface Platform {}

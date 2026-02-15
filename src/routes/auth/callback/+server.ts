@@ -65,7 +65,8 @@ export const GET = async (event) => {
 
 	const payload: JWTPayload = {
 		id: user_id,
-		username: github_user.login
+		username: github_user.login,
+		email: github_user.email
 	}
 
 	const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })

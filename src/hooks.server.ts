@@ -9,8 +9,8 @@ function authorize(event: RequestEvent) {
 	const token = event.cookies.get('jwt')
 	if (!token) return
 	try {
-		const { id, username } = jwt.verify(token, JWT_SECRET) as JWTPayload
-		event.locals.user = { id, username }
+		const { id, username, email } = jwt.verify(token, JWT_SECRET) as JWTPayload
+		event.locals.user = { id, username, email }
 	} catch (_) {}
 }
 

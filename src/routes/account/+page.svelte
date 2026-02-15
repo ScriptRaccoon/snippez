@@ -1,5 +1,7 @@
 <script lang="ts">
-	let { form, data } = $props()
+	import { page } from '$app/state'
+
+	let { form } = $props()
 </script>
 
 <header>
@@ -9,10 +11,10 @@
 <p>Logged in via GitHub</p>
 
 <p>
-	<strong>Username</strong>
-	{data.username} <br />
-	<strong>Email</strong>
-	{data.email}
+	<strong>Username</strong> &ndash;
+	{page.data.user?.username} <br />
+	<strong>Email</strong> &ndash;
+	{page.data.user?.email}
 </p>
 
 <p>
