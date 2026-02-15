@@ -31,3 +31,12 @@ p {
 header {
 	margin-block: 1rem 2rem;
 }
+
+label {
+	display: block;
+}
+
+input[type='text'],
+textarea {
+	width: 100%;
+}

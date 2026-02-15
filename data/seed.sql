@@ -5,3 +5,18 @@ CREATE TABLE IF NOT EXISTS users (
     email TEXT NOT NULL,
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS snippets (
+    id TEXT PRIMARY KEY,
+    user_id INTEGER NOT NULL,
+    title TEXT NOT NULL,
+    description TEXT,
+    public INTEGER NOT NULL DEFAULT 0 CHECK (public IN (0, 1)),
+    language TEXT NOT NULL,
+    content TEXT NOT NULL,
+    views INTEGER NOT NULL DEFAULT 0 CHECK (views >= 0),
+    created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE
+);
+
+CREATE INDEX IF NOT EXISTS idx_snippets_user_id ON snippets (user_id);
