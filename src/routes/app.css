@@ -55,6 +55,10 @@ header:has(h1) {
 	margin-block: 1.5rem;
 }
 
+strong {
+	font-weight: 500;
+}
+
 /* INTERACTIVE ELEMENTS */
 
 input,

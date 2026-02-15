@@ -7,7 +7,7 @@
 			<a href="/snippets/new">New snippet</a>
 		</li>
 		<li>
-			<a href="/auth/logout">Logout</a>
+			<a href="/account">Account</a>
 		</li>
 	</ul>
 </nav>

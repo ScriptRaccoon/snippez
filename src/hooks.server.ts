@@ -3,7 +3,7 @@ import type { JWTPayload } from '$lib/types'
 import { redirect, type RequestEvent } from '@sveltejs/kit'
 import jwt from 'jsonwebtoken'
 
-const auth_routes = ['/dashboard', '/snippets/new']
+const auth_routes = ['/dashboard', '/snippets/new', '/account']
 
 function authorize(event: RequestEvent) {
 	const token = event.cookies.get('jwt')
