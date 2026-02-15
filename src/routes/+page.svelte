@@ -1,3 +1,3 @@
 <header>
-	<h1>Home</h1>
+	<h1>Snippez</h1>
 </header>
