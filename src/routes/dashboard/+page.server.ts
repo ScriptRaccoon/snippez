@@ -8,7 +8,8 @@ export const load = async (event) => {
 	const sql = `
         SELECT id, title, description, public
         FROM snippets
-        WHERE user_id = ?`
+        WHERE user_id = ?
+		ORDER BY created_at DESC`
 
 	const { rows: snippets, err } = await query<{
 		id: string
