@@ -7,6 +7,7 @@
 </script>
 
 <svelte:head>
+	<title>SvelteKit GitHub OAuth Example</title>
 	<link rel="icon" href={favicon} />
 </svelte:head>
 

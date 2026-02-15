@@ -7,9 +7,11 @@ declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
+			user?: JWTPayload
+		}
+		interface PageData {
 			user: JWTPayload
 		}
-		// interface PageData {}
 		// interface PageState {}
 		// interface Platform {}
 	}

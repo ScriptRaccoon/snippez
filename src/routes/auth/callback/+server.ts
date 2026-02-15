@@ -80,5 +80,5 @@ export const GET = async (event) => {
 
 	event.cookies.delete('oauth_state', { path: '/' })
 
-	redirect(302, '/')
+	redirect(302, '/dashboard')
 }
