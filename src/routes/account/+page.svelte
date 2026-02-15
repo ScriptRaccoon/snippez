@@ -2,6 +2,8 @@
 	import { page } from '$app/state'
 
 	let { form } = $props()
+
+	let confirm_deletion = $state(false)
 </script>
 
 <header>
@@ -22,7 +24,23 @@
 </p>
 
 <form method="POST" action="?/delete">
-	<button class="button">Delete account</button>
+	{#if confirm_deletion}
+		<p>
+			Deleting your account cannot be undone. All your snippets will be deleted as well.
+			Please confirm.
+		</p>
+		<button class="button">Delete account</button>
+	{:else}
+		<button
+			class="button"
+			type="button"
+			onclick={() => {
+				confirm_deletion = true
+			}}
+		>
+			Delete account
+		</button>
+	{/if}
 </form>
 
 {#if form?.error}
