@@ -35,3 +35,10 @@ export const allow_tab_inputs: Attachment = (textarea) => {
 		textarea.removeEventListener('keydown', handler)
 	}
 }
+
+export const scroll_here: Attachment = (element) => {
+	element.scrollIntoView({
+		block: 'end',
+		behavior: 'smooth'
+	})
+}

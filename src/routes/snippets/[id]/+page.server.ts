@@ -32,12 +32,12 @@ export const load = async (event) => {
 	try {
 		highlighted_code = await codeToHtml(snippet.code, {
 			lang: snippet.language,
-			theme: 'github-dark-default'
+			theme: 'slack-dark'
 		})
 	} catch (_) {
 		highlighted_code = await codeToHtml(snippet.code, {
 			lang: 'text',
-			theme: 'github-dark-default'
+			theme: 'slack-dark'
 		})
 	}
 

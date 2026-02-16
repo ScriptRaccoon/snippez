@@ -1,10 +1,14 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
-	import { allow_tab_inputs, resize_textarea } from '$lib/client/utilts'
+	import { allow_tab_inputs, resize_textarea, scroll_here } from '$lib/client/utilts'
+	import LanguagesDataList from '$lib/components/LanguagesDataList.svelte'
+	import PublicContainer from '$lib/components/PublicContainer.svelte'
 
 	let { data, form } = $props()
 
 	let confirm_deletion = $state(false)
+
+	let is_public = $derived(Boolean(data.snippet.public))
 </script>
 
 <header>
@@ -25,7 +29,7 @@
 	</div>
 
 	<div class="form-group">
-		<label class="label" for="description">Description</label>
+		<label class="label" for="description">Description (optional)</label>
 		<textarea class="input" name="description" id="description" {@attach resize_textarea}
 			>{data.snippet.description}</textarea
 		>
@@ -40,16 +44,7 @@
 			id="language"
 			required
 			value={data.snippet.language}
-		/>
-	</div>
-
-	<div class="form-group">
-		<label class="label" for="is_public">Public</label>
-		<input
-			type="checkbox"
-			name="is_public"
-			id="is_public"
-			checked={Boolean(data.snippet.public)}
+			list="languages"
 		/>
 	</div>
 
@@ -65,36 +60,73 @@
 		>
 	</div>
 
-	<div class="actions">
-		<button class="button">Update</button>
-		{#if confirm_deletion}
-			<button class="button" formaction="?/delete"> Delete snippet</button>
-		{:else}
-			<button
-				class="button"
-				type="button"
-				onclick={() => {
-					confirm_deletion = true
-				}}
-			>
-				Delete snippet</button
-			>
-		{/if}
+	<div class="form-group">
+		<input
+			type="checkbox"
+			name="is_public"
+			id="is_public"
+			class="sr-only"
+			bind:checked={is_public}
+		/>
+
+		<PublicContainer bind:is_public />
 	</div>
 
-	{#if confirm_deletion}
-		<p>Are you sure that you want to delete the snippet? Click again to confirm.</p>
-	{/if}
+	<div class="actions main">
+		<button class="button">Update snippet</button>
+
+		<button
+			class="button danger"
+			type="button"
+			onclick={() => {
+				confirm_deletion = true
+			}}
+			disabled={confirm_deletion}
+		>
+			Delete snippet</button
+		>
+	</div>
 </form>
+
+{#if confirm_deletion}
+	<form method="POST" action="?/delete" class="delete-form" {@attach scroll_here}>
+		<p>Are you sure that you want to delete this snippet?</p>
+
+		<div class="actions">
+			<button class="button danger">Yes, delete snippet</button>
+
+			<button
+				type="button"
+				class="button"
+				onclick={() => {
+					confirm_deletion = false
+				}}>Cancel</button
+			>
+		</div>
+	</form>
+{/if}
 
 {#if form?.error}
 	<p class="error">{form.error}</p>
 {/if}
+
+<LanguagesDataList />
 
 <style>
 	.actions {
 		display: flex;
 		flex-direction: row-reverse;
 		justify-content: space-between;
+	}
+
+	.actions.main {
+		margin-top: 2rem;
+	}
+
+	.delete-form {
+		margin-top: 2rem;
+		/* scroll hack: */
+		padding-bottom: 2rem;
+		margin-bottom: -2rem;
 	}
 </style>

@@ -8,6 +8,13 @@ export type GitHubUser = {
 	login: string
 }
 
+export type SnippetSummary = {
+	id: string
+	title: string
+	description: string
+	public: 0 | 1
+}
+
 export type SnippetDetails = {
 	id: string
 	user_id: number

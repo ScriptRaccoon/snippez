@@ -37,8 +37,10 @@
 
 	{#if data.snippet.public}
 		<Globe size={20} />
+		<span class="sr-only">Public</span>
 	{:else}
 		<Lock size={20} />
+		<span class="sr-only">Private</span>
 	{/if}
 </header>
 
@@ -48,10 +50,12 @@
 
 <div class="data">
 	<span class="language" aria-label="language">{data.snippet.language}</span>
-	<span class="views">
+	<span class="views" aria-hidden="true">
 		<Eye size={18} />
 		{data.snippet.views}
 	</span>
+
+	<span class="sr-only">{data.snippet.views} views</span>
 </div>
 
 <div class="code-block-container">
@@ -81,12 +85,13 @@
 
 <style>
 	header {
-		display: flex;
-		justify-content: space-between;
+		display: grid;
+		grid-template-columns: 1fr auto;
 		align-items: center;
 	}
 
 	.description {
+		margin-block: -1rem 1.5rem;
 		color: var(--secondary-font-color);
 		font-size: 1.125rem;
 	}
@@ -112,6 +117,7 @@
 			overflow-x: auto;
 			padding: 1rem;
 			border-radius: 0.25rem;
+			scrollbar-width: thin;
 		}
 	}
 

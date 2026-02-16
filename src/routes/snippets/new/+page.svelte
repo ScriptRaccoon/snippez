@@ -1,8 +1,12 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
 	import { allow_tab_inputs, resize_textarea } from '$lib/client/utilts'
+	import LanguagesDataList from '$lib/components/LanguagesDataList.svelte'
+	import PublicContainer from '$lib/components/PublicContainer.svelte'
 
 	let { form } = $props()
+
+	let is_public = $state(false)
 </script>
 
 <header>
@@ -16,19 +20,21 @@
 	</div>
 
 	<div class="form-group">
-		<label class="label" for="description">Description</label>
+		<label class="label" for="description">Description (optional)</label>
 		<textarea class="input" name="description" {@attach resize_textarea} id="description"
 		></textarea>
 	</div>
 
 	<div class="form-group">
 		<label class="label" for="language">Language</label>
-		<input class="input code" type="text" name="language" id="language" required />
-	</div>
-
-	<div class="form-group">
-		<label class="label" for="is_public">Public</label>
-		<input type="checkbox" name="is_public" id="is_public" />
+		<input
+			class="input code"
+			type="text"
+			name="language"
+			id="language"
+			required
+			list="languages"
+		/>
 	</div>
 
 	<div class="form-group">
@@ -43,11 +49,31 @@
 		></textarea>
 	</div>
 
-	<div>
-		<button class="button">Submit</button>
+	<div class="form-group">
+		<input
+			type="checkbox"
+			name="is_public"
+			id="is_public"
+			class="sr-only"
+			bind:checked={is_public}
+		/>
+
+		<PublicContainer bind:is_public />
+	</div>
+
+	<div class="actions">
+		<button class="button">Create Snippet</button>
 	</div>
 </form>
 
 {#if form?.error}
 	<p class="error">{form.error}</p>
 {/if}
+
+<LanguagesDataList />
+
+<style>
+	.actions {
+		margin-top: 2rem;
+	}
+</style>

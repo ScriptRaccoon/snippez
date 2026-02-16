@@ -38,6 +38,6 @@
 	.container {
 		max-width: 600px;
 		margin-inline: auto;
-		padding-inline: 0.75rem;
+		padding-inline: 1rem;
 	}
 </style>
