@@ -6,6 +6,9 @@ A minimal code snippet app.
 
 Sign in with GitHub, create snippets, and share them publicly or keep them private.
 
+<br /><img src="https://github.com/user-attachments/assets/186d1868-da2d-4284-95bc-8e5ccf274a56" width="350" alt="preview of a CSS snippet" />
+
+
 ## Stack
 
 - **SvelteKit:** Fullstack framework (routing, server endpoints, SSR).
