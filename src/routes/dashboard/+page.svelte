@@ -7,13 +7,15 @@
 	<h1>Your snippets</h1>
 </header>
 
-<div class="snippets">
-	{#each data.snippets as snippet (snippet.id)}
-		<SnippetCard {...snippet} />
-	{:else}
-		<a class="button" href="/snippets/new">Create your first snippet</a>
-	{/each}
-</div>
+{#if data.snippets.length}
+	<div class="snippets">
+		{#each data.snippets as snippet (snippet.id)}
+			<SnippetCard {...snippet} />
+		{/each}
+	</div>
+{:else}
+	<a class="button" href="/snippets/new">Create your first snippet</a>
+{/if}
 
 <style>
 	.snippets {
