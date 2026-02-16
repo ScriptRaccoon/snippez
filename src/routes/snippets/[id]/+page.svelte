@@ -54,7 +54,9 @@
 	</span>
 </div>
 
-<pre class="code-block">{data.snippet.code}</pre>
+<div class="code-block-container">
+	{@html data.highlighted_code}
+</div>
 
 <div class="actions">
 	<button class="button" onclick={copy_url}>
@@ -101,13 +103,15 @@
 		color: var(--secondary-font-color);
 	}
 
-	.code-block {
-		margin-block: 1rem 2rem;
-		overflow-x: auto;
-		background-color: var(--code-bg-color);
-		outline: 1px solid var(--outline-color);
-		padding: 0.5rem;
-		border-radius: 0.25rem;
+	.code-block-container {
+		margin-block: 1rem;
+
+		:global(pre) {
+			outline: 1px solid var(--outline-color);
+			overflow-x: auto;
+			padding: 1rem;
+			border-radius: 0.25rem;
+		}
 	}
 
 	.actions {
