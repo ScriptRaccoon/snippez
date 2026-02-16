@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { enhance } from '$app/forms'
-	import { resize_textarea } from '$lib/client/utilts'
+	import { allow_tab_inputs, resize_textarea } from '$lib/client/utilts'
 
 	let { form } = $props()
 </script>
@@ -33,7 +33,13 @@
 
 	<div class="form-group">
 		<label class="label" for="code">Code</label>
-		<textarea {@attach resize_textarea} class="input code" name="code" id="code" required
+		<textarea
+			{@attach resize_textarea}
+			{@attach allow_tab_inputs}
+			class="input code"
+			name="code"
+			id="code"
+			required
 		></textarea>
 	</div>
 
