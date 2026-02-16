@@ -52,9 +52,9 @@
 	</div>
 
 	<div class="form-group">
-		<label class="label" for="content">Content</label>
-		<textarea class="input" name="content" id="content" required {@attach resize_textarea}
-			>{data.snippet.content}</textarea
+		<label class="label" for="content">Code</label>
+		<textarea class="input" name="code" id="code" required {@attach resize_textarea}
+			>{data.snippet.code}</textarea
 		>
 	</div>
 

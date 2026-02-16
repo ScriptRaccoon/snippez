@@ -32,8 +32,8 @@
 	</div>
 
 	<div class="form-group">
-		<label class="label" for="content">Content</label>
-		<textarea {@attach resize_textarea} class="input" name="content" id="content" required
+		<label class="label" for="code">Code</label>
+		<textarea {@attach resize_textarea} class="input" name="code" id="code" required
 		></textarea>
 	</div>
 

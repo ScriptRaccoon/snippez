@@ -1,6 +1,7 @@
 import { query } from '$lib/server/db'
 import type { SnippetDetails } from '$lib/types'
 import { error, fail, redirect } from '@sveltejs/kit'
+import { validate_snippet } from '$lib/server/schemas'
 
 export const load = async (event) => {
 	const user = event.locals.user
@@ -9,7 +10,7 @@ export const load = async (event) => {
 	const snippet_id = event.params.id
 
 	const sql = `
-        SELECT id, user_id, title, description, language, public, content, views
+        SELECT id, user_id, title, description, language, public, code, views
         FROM snippets
         WHERE id = ? AND user_id = ?`
 
@@ -36,7 +37,10 @@ export const actions = {
 		const description = (form.get('description') as string) || null
 		const language = form.get('language') as string
 		const is_public = form.get('is_public') ? 1 : 0
-		const content = form.get('content') as string
+		const code = form.get('code') as string
+
+		const { validation_error } = validate_snippet({ title, description, language, code })
+		if (validation_error) return fail(400, { error: validation_error })
 
 		const sql = `
 			UPDATE snippets
@@ -45,10 +49,10 @@ export const actions = {
 				description = ?,
 				language = ?,
 				public = ?,
-				content = ?
+				code = ?
 			WHERE id = ? AND user_id = ?`
 
-		const args = [title, description, language, is_public, content, snippet_id, user.id]
+		const args = [title, description, language, is_public, code, snippet_id, user.id]
 
 		const { err } = await query(sql, args)
 

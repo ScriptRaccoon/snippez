@@ -12,7 +12,7 @@ CREATE TABLE IF NOT EXISTS snippets (
     description TEXT,
     public INTEGER NOT NULL DEFAULT 0 CHECK (public IN (0, 1)),
     language TEXT NOT NULL,
-    content TEXT NOT NULL,
+    code TEXT NOT NULL,
     views INTEGER NOT NULL DEFAULT 0 CHECK (views >= 0),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE

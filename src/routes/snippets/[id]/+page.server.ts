@@ -8,7 +8,7 @@ export const load = async (event) => {
 	const snippet_id = event.params.id
 
 	const sql = `
-        SELECT id, user_id, title, description, language, public, content, views
+        SELECT id, user_id, title, description, language, public, code, views
         FROM snippets
         WHERE id = ?`
 

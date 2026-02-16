@@ -8,7 +8,7 @@
 	let copied_url = $state(false)
 
 	async function copy_code() {
-		await navigator.clipboard.writeText(data.snippet.content)
+		await navigator.clipboard.writeText(data.snippet.code)
 		copied_code = true
 		setTimeout(() => {
 			copied_code = false
@@ -47,7 +47,7 @@
 	</span>
 </div>
 
-<pre class="code-block">{data.snippet.content}</pre>
+<pre class="code-block">{data.snippet.code}</pre>
 
 <div class="actions">
 	<button class="button" onclick={copy_url}>

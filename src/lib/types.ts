@@ -15,6 +15,6 @@ export type SnippetDetails = {
 	description: string | null
 	language: string
 	public: 0 | 1
-	content: string
+	code: string
 	views: number
 }
