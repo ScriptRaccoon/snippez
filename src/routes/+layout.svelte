@@ -15,7 +15,7 @@
 	<meta name="apple-mobile-web-app-title" content="Snippez" />
 	<link rel="manifest" href="/site.webmanifest" />
 
-	<meta property="og:title" content="Lingue" />
+	<meta property="og:title" content="Snippez" />
 	<meta
 		property="og:description"
 		content="Create code snippets and share them with others."
