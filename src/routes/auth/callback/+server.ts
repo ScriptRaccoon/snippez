@@ -1,8 +1,9 @@
-import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET, JWT_SECRET } from '$env/static/private'
+import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private'
+import { OAUTH_COOKIE_NAME } from '../config'
 import { query } from '$lib/server/db'
-import type { GitHubUser, JWTPayload } from '$lib/types'
+import type { GitHubUser, User } from '$lib/types'
 import { error, redirect } from '@sveltejs/kit'
-import jwt from 'jsonwebtoken'
+import { set_auth_cookie } from '$lib/server/auth'
 
 const GITHUB_ACCESS_TOKEN_URL = 'https://github.com/login/oauth/access_token'
 const GITHUB_USER_URL = 'https://api.github.com/user'
@@ -11,7 +12,7 @@ export const GET = async (event) => {
 	const params = event.url.searchParams
 	const code = params.get('code')
 	const state = params.get('state')
-	const stored_state = event.cookies.get('oauth_state')
+	const stored_state = event.cookies.get(OAUTH_COOKIE_NAME)
 
 	if (!code || !state || state !== stored_state) {
 		error(400, 'Invalid OAuth state')
@@ -62,19 +63,11 @@ export const GET = async (event) => {
 
 	const user_id = rows[0].id
 
-	const payload: JWTPayload = { id: user_id, username: github_user.login }
+	const user: User = { id: user_id, username: github_user.login }
 
-	const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
+	set_auth_cookie(event, user)
 
-	event.cookies.set('jwt', token, {
-		path: '/',
-		httpOnly: true,
-		sameSite: 'lax',
-		secure: true,
-		maxAge: 60 * 60 * 24
-	})
-
-	event.cookies.delete('oauth_state', { path: '/' })
+	event.cookies.delete(OAUTH_COOKIE_NAME, { path: '/' })
 
 	redirect(302, '/dashboard')
 }

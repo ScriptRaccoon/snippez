@@ -1,3 +1,4 @@
+import { remove_auth_cookie } from '$lib/server/auth'
 import { query } from '$lib/server/db'
 import { fail, redirect } from '@sveltejs/kit'
 
@@ -12,7 +13,7 @@ export const actions = {
 
 		if (err) return fail(500, { error: 'Database error' })
 
-		event.cookies.delete('jwt', { path: '/' })
+		remove_auth_cookie(event)
 
 		redirect(303, '/')
 	}
