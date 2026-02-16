@@ -1,6 +1,7 @@
 <script lang="ts">
 	import './app.css'
 	import Nav from '$lib/components/Nav.svelte'
+	import LoadingBar from '$lib/components/LoadingBar.svelte'
 
 	let { data, children } = $props()
 </script>
@@ -33,6 +34,8 @@
 <div class="container">
 	{@render children()}
 </div>
+
+<LoadingBar />
 
 <style>
 	.container {
