@@ -1,7 +1,7 @@
 import { GITHUB_CLIENT_ID, GITHUB_CLIENT_SECRET } from '$env/static/private'
 import { OAUTH_COOKIE_NAME } from '../config'
 import { query } from '$lib/server/db'
-import type { GitHubUser, User } from '$lib/types'
+import type { GitHubUser } from '$lib/types'
 import { error, redirect } from '@sveltejs/kit'
 import { set_auth_cookie } from '$lib/server/auth'
 
@@ -47,25 +47,24 @@ export const GET = async (event) => {
 
 	const github_user = (await user_res.json()) as GitHubUser
 
-	const { id, login } = github_user
+	const { id, login, avatar_url } = github_user
 
 	const sql = `
 		INSERT INTO users
-			(github_id, username)
-		VALUES (?, ?)
+			(github_id, username, avatar_url)
+		VALUES (?, ?, ?)
 		ON CONFLICT (github_id) DO UPDATE SET
-			username = excluded.username
+			username = excluded.username,
+			avatar_url = excluded.avatar_url
 		RETURNING id`
 
-	const { rows, err } = await query<{ id: number }>(sql, [id, login])
+	const { rows, err } = await query<{ id: number }>(sql, [id, login, avatar_url])
 
 	if (err || !rows.length) error(500, 'Database error')
 
 	const user_id = rows[0].id
 
-	const user: User = { id: user_id, username: github_user.login }
-
-	set_auth_cookie(event, user)
+	set_auth_cookie(event, { id: user_id, username: login, avatar_url })
 
 	event.cookies.delete(OAUTH_COOKIE_NAME, { path: '/' })
 

@@ -3,7 +3,7 @@
 	import Nav from '$lib/components/Nav.svelte'
 	import LoadingBar from '$lib/components/LoadingBar.svelte'
 
-	let { data, children } = $props()
+	let { children } = $props()
 </script>
 
 <svelte:head>
@@ -27,11 +27,9 @@
 	<meta property="og:site_name" content="Snippez" />
 </svelte:head>
 
-{#if data.user}
-	<Nav />
-{/if}
-
 <div class="container">
+	<Nav />
+
 	{@render children()}
 </div>
 

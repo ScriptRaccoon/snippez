@@ -1,10 +1,12 @@
 export type User = {
 	id: number
 	username: string
+	avatar_url: string
 }
 
 export type GitHubUser = {
 	id: number
+	avatar_url: string
 	login: string
 }
 

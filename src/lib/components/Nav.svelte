@@ -3,62 +3,70 @@
 	import { User, CirclePlus, LayoutList } from 'lucide-svelte'
 </script>
 
-<nav>
-	<ul>
-		<li>
-			<a
-				href="/dashboard"
-				aria-label="dashboard"
-				aria-current={page.url.pathname === '/dashboard'}
-			>
-				<LayoutList size={22} />
-			</a>
-		</li>
-		<li>
-			<a
-				href="/snippets/new"
-				aria-label="new snippet"
-				aria-current={page.url.pathname === '/snippets/new'}
-			>
-				<CirclePlus size={22} />
-			</a>
-		</li>
-		<li>
-			<a
-				href="/account"
-				aria-label="account"
-				aria-current={page.url.pathname === '/account'}
-			>
-				<User size={22} />
-			</a>
-		</li>
-	</ul>
-</nav>
+{#if page.data.user}
+	<nav>
+		<ul>
+			<li>
+				<a
+					class="icon-link"
+					href="/dashboard"
+					aria-label="dashboard"
+					aria-current={page.url.pathname === '/dashboard'}
+				>
+					<LayoutList size={22} />
+				</a>
+			</li>
+			<li>
+				<a
+					class="icon-link"
+					href="/snippets/new"
+					aria-label="new snippet"
+					aria-current={page.url.pathname === '/snippets/new'}
+				>
+					<CirclePlus size={26} />
+				</a>
+			</li>
+			<li class="account-link">
+				<a
+					href="/account"
+					aria-label="account"
+					aria-current={page.url.pathname === '/account'}
+				>
+					<img src={page.data.user.avatar_url} alt="avatar" class="avatar" />
+				</a>
+			</li>
+		</ul>
+	</nav>
+{/if}
 
 <style>
 	ul {
 		list-style-type: none;
 		display: flex;
-		justify-content: center;
 		gap: 1rem;
+		align-items: center;
 	}
 
 	nav {
 		padding-top: 1rem;
 	}
 
-	a {
+	.icon-link {
+		width: 2.25rem;
+		aspect-ratio: 1;
 		display: flex;
-		flex-direction: column;
 		align-items: center;
-		text-decoration: none;
-		border: 1px solid var(--outline-color);
-		padding: 0.4rem 0.75rem;
-		border-radius: 0.5rem;
-		background-color: var(--card-color);
+		justify-content: center;
+		border-radius: 50%;
+		background-color: var(--button-color);
+	}
 
-		&[aria-current='true'] {
-			border-color: var(--focus-outline-color);
-		}
+	.account-link {
+		margin-left: auto;
+	}
+
+	.avatar {
+		border-radius: 50%;
+		width: 2rem;
 	}
 </style>

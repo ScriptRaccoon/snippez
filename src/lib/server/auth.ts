@@ -9,8 +9,8 @@ export function authorize(event: RequestEvent) {
 	const token = event.cookies.get(JWT_COOKIE_NAME)
 	if (!token) return
 	try {
-		const { id, username } = jwt.verify(token, JWT_SECRET) as User
-		event.locals.user = { id, username }
+		const { id, username, avatar_url } = jwt.verify(token, JWT_SECRET) as User
+		event.locals.user = { id, username, avatar_url }
 	} catch (_) {}
 }
 
