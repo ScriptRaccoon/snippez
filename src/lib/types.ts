@@ -14,16 +14,12 @@ export type SnippetSummary = {
 	id: string
 	title: string
 	description: string
-	public: 0 | 1
+	is_public: 0 | 1
 }
 
-export type SnippetDetails = {
-	id: string
+export type SnippetDetails = SnippetSummary & {
 	user_id: number
-	title: string
-	description: string | null
 	language: string
-	public: 0 | 1
 	code: string
 	views: number
 }

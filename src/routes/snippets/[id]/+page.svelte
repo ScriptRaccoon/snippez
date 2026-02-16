@@ -35,7 +35,7 @@
 <header>
 	<h1>{data.snippet.title}</h1>
 
-	{#if data.snippet.public}
+	{#if data.snippet.is_public}
 		<Globe size={20} />
 		<span class="sr-only">Public</span>
 	{:else}

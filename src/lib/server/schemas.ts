@@ -6,12 +6,9 @@ const title_schema = v.pipe(
 	v.maxLength(100, 'Title must be at most 100 characters long')
 )
 
-const description_schema = v.nullable(
-	v.pipe(
-		v.string('Description must be a string'),
-		v.nonEmpty('Description is required'),
-		v.maxLength(1000, 'Description must be at most 1000 characters long')
-	)
+const description_schema = v.pipe(
+	v.string('Description must be a string'),
+	v.maxLength(1000, 'Description must be at most 1000 characters long')
 )
 
 const language_schema = v.pipe(

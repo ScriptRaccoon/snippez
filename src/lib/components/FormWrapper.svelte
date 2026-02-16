@@ -10,7 +10,7 @@
 		children: Snippet<[boolean]>
 	}
 
-	let { action = '', children }: Props = $props()
+	let { action, children }: Props = $props()
 
 	$effect(() => {
 		is_loading.value = sending

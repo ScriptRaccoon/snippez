@@ -10,10 +10,10 @@ CREATE TABLE IF NOT EXISTS snippets (
     id TEXT PRIMARY KEY,
     user_id INTEGER NOT NULL,
     title TEXT NOT NULL,
-    description TEXT,
-    public INTEGER NOT NULL DEFAULT 0 CHECK (public IN (0, 1)),
+    description TEXT NOT NULL,
     language TEXT NOT NULL,
     code TEXT NOT NULL,
+    is_public INTEGER NOT NULL DEFAULT 0 CHECK (is_public IN (0, 1)),
     views INTEGER NOT NULL DEFAULT 0 CHECK (views >= 0),
     created_at TEXT NOT NULL DEFAULT CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE

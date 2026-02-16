@@ -2,7 +2,7 @@
 	import type { SnippetSummary } from '$lib/types'
 	import { Globe, Lock } from 'lucide-svelte'
 
-	let { id, title, public: is_public, description }: SnippetSummary = $props()
+	let { id, title, is_public, description }: SnippetSummary = $props()
 </script>
 
 <a class="snippet" href="/snippets/{id}">
@@ -31,14 +31,14 @@
 		border-radius: 0.5rem;
 	}
 
-	.title {
-		font-size: 1.25rem;
-	}
-
 	header {
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
+	}
+
+	.title {
+		font-size: 1.25rem;
 	}
 
 	.description {

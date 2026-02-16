@@ -8,7 +8,7 @@
 
 	let confirm_deletion = $state(false)
 
-	let is_public = $derived(Boolean(data.snippet.public))
+	let is_public = $derived(Boolean(data.snippet.is_public))
 </script>
 
 <header>

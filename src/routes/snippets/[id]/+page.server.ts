@@ -1,7 +1,7 @@
 import { query } from '$lib/server/db'
+import { get_highlighted_code } from '$lib/server/highlight.js'
 import type { SnippetDetailsWithUser } from '$lib/types'
 import { error } from '@sveltejs/kit'
-import { codeToHtml } from 'shiki'
 
 export const load = async (event) => {
 	const user = event.locals.user
@@ -9,7 +9,9 @@ export const load = async (event) => {
 	const snippet_id = event.params.id
 
 	const sql = `
-        SELECT s.id, user_id, title, description, language, public, code, views, username
+        SELECT
+			s.id, user_id, title, description, language,
+			code, is_public, views, username
         FROM snippets s
 		INNER JOIN users
 		ON s.user_id = users.id
@@ -24,22 +26,10 @@ export const load = async (event) => {
 
 	const is_owner = snippet.user_id === user?.id
 
-	const has_access = Boolean(snippet.public) || is_owner
+	const has_access = Boolean(snippet.is_public) || is_owner
 	if (!has_access) error(404, 'Not Found')
 
-	let highlighted_code = ''
-
-	try {
-		highlighted_code = await codeToHtml(snippet.code, {
-			lang: snippet.language,
-			theme: 'slack-dark'
-		})
-	} catch (_) {
-		highlighted_code = await codeToHtml(snippet.code, {
-			lang: 'text',
-			theme: 'slack-dark'
-		})
-	}
+	const highlighted_code = await get_highlighted_code(snippet.code, snippet.language)
 
 	if (!is_owner) {
 		const sql_view = `UPDATE snippets SET views = views + 1 WHERE id = ?`

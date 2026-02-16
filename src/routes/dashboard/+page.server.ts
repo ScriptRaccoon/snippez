@@ -1,5 +1,5 @@
 import { query } from '$lib/server/db'
-import type { SnippetSummary } from '$lib/types.js'
+import type { SnippetSummary } from '$lib/types'
 import { error, redirect } from '@sveltejs/kit'
 
 export const load = async (event) => {
@@ -7,7 +7,7 @@ export const load = async (event) => {
 	if (!user) redirect(307, '/auth/login')
 
 	const sql = `
-        SELECT id, title, description, public
+        SELECT id, title, description, is_public
         FROM snippets
         WHERE user_id = ?
 		ORDER BY created_at DESC`

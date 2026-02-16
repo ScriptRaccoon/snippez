@@ -11,10 +11,10 @@ export const actions = {
 		const form = await event.request.formData()
 
 		const title = form.get('title') as string
-		const description = (form.get('description') as string) || null
+		const description = form.get('description') as string
 		const language = form.get('language') as string
-		const is_public = form.get('is_public') ? 1 : 0
 		const code = form.get('code') as string
+		const is_public = form.get('is_public') ? 1 : 0
 
 		const { validation_error } = validate_snippet({ title, description, language, code })
 		if (validation_error) return fail(400, { error: validation_error })
@@ -23,10 +23,10 @@ export const actions = {
 
 		const sql = `
             INSERT INTO snippets
-                (id, user_id, title, description, language, public, code)
+                (id, user_id, title, description, language, code, is_public)
             VALUES (?, ?, ?, ?, ?, ?, ?)`
 
-		const args = [id, user.id, title, description, language, is_public, code]
+		const args = [id, user.id, title, description, language, code, is_public]
 
 		const { err } = await query(sql, args)
 

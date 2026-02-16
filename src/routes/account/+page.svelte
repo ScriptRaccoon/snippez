@@ -12,7 +12,8 @@
 </header>
 
 <p>
-	You are logged in via GitHub as <strong class="username">
+	You are logged in via GitHub as
+	<strong class="username">
 		{page.data.user?.username}
 	</strong>.
 </p>
@@ -35,9 +36,7 @@
 {#if confirm_deletion}
 	<FormWrapper action="?/delete">
 		{#snippet children(sending)}
-			<p>
-				Deleting your account cannot be undone. All your snippets will be deleted as well.
-			</p>
+			<p>Deleting your account cannot be undone. All your snippets will be removed.</p>
 
 			<div class="actions delete-actions">
 				<button

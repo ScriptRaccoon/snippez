@@ -10,7 +10,7 @@ export const load = async (event) => {
 	const snippet_id = event.params.id
 
 	const sql = `
-        SELECT id, user_id, title, description, language, public, code, views
+        SELECT id, user_id, title, description, language, code, is_public, views
         FROM snippets
         WHERE id = ? AND user_id = ?`
 
@@ -34,10 +34,10 @@ export const actions = {
 		const form = await event.request.formData()
 
 		const title = form.get('title') as string
-		const description = (form.get('description') as string) || null
+		const description = form.get('description') as string
 		const language = form.get('language') as string
-		const is_public = form.get('is_public') ? 1 : 0
 		const code = form.get('code') as string
+		const is_public = form.get('is_public') ? 1 : 0
 
 		const { validation_error } = validate_snippet({ title, description, language, code })
 		if (validation_error) return fail(400, { error: validation_error })
@@ -48,11 +48,11 @@ export const actions = {
 				title = ?,
 				description = ?,
 				language = ?,
-				public = ?,
-				code = ?
+				code = ?,
+				is_public = ?
 			WHERE id = ? AND user_id = ?`
 
-		const args = [title, description, language, is_public, code, snippet_id, user.id]
+		const args = [title, description, language, code, is_public, snippet_id, user.id]
 
 		const { err } = await query(sql, args)
 

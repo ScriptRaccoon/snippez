@@ -5,12 +5,12 @@
 <div>
 	{#if is_public}
 		<div>Your snippet is public. It can be accessed by anyone with the link.</div>
-		<button class="small button" onclick={() => (is_public = false)}>
+		<button class="small button" type="button" onclick={() => (is_public = false)}>
 			Mark as private
 		</button>
 	{:else}
 		<div class="info">Your snippet is private. Only you can access it.</div>
-		<button class="small button" onclick={() => (is_public = true)}>
+		<button class="small button" type="button" onclick={() => (is_public = true)}>
 			Mark as public
 		</button>
 	{/if}

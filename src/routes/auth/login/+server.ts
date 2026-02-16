@@ -1,5 +1,5 @@
 import { GITHUB_CLIENT_ID, GITHUB_REDIRECT_URI } from '$env/static/private'
-import { OAUTH_COOKIE_NAME } from '../config.js'
+import { OAUTH_COOKIE_NAME } from '../config'
 import { redirect } from '@sveltejs/kit'
 import crypto from 'node:crypto'
 

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { User, CirclePlus, LayoutList } from 'lucide-svelte'
+	import { CirclePlus, LayoutList } from 'lucide-svelte'
 </script>
 
 {#if page.data.user}
