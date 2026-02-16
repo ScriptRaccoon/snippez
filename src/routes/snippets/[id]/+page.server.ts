@@ -27,10 +27,19 @@ export const load = async (event) => {
 	const has_access = Boolean(snippet.public) || is_owner
 	if (!has_access) error(404, 'Not Found')
 
-	const highlighted_code = await codeToHtml(snippet.code, {
-		lang: snippet.language,
-		theme: 'github-dark-default'
-	})
+	let highlighted_code = ''
+
+	try {
+		highlighted_code = await codeToHtml(snippet.code, {
+			lang: snippet.language,
+			theme: 'github-dark-default'
+		})
+	} catch (_) {
+		highlighted_code = await codeToHtml(snippet.code, {
+			lang: 'text',
+			theme: 'github-dark-default'
+		})
+	}
 
 	if (!is_owner) {
 		const sql_view = `UPDATE snippets SET views = views + 1 WHERE id = ?`
