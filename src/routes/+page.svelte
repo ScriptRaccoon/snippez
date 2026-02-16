@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { page } from '$app/state'
+</script>
+
 <header>
 	<h1>Snippez</h1>
 </header>
@@ -5,9 +9,15 @@
 <main>
 	<p>Create code snippets and share them with others.</p>
 
-	<p>
-		To get started, <a href="/auth/login">log in with GitHub</a>.
-	</p>
+	{#if page.data.user}
+		<p>
+			Go to your <a href="/dashboard">dashboard</a>.
+		</p>
+	{:else}
+		<p>
+			To get started, <a href="/auth/login">log in with GitHub</a>.
+		</p>
+	{/if}
 </main>
 
 <footer>
