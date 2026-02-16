@@ -18,3 +18,5 @@ export type SnippetDetails = {
 	code: string
 	views: number
 }
+
+export type SnippetDetailsWithUser = SnippetDetails & { username: string }

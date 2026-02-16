@@ -1,5 +1,5 @@
 import { query } from '$lib/server/db'
-import type { SnippetDetails } from '$lib/types'
+import type { SnippetDetailsWithUser } from '$lib/types'
 import { error } from '@sveltejs/kit'
 
 export const load = async (event) => {
@@ -8,11 +8,13 @@ export const load = async (event) => {
 	const snippet_id = event.params.id
 
 	const sql = `
-        SELECT id, user_id, title, description, language, public, code, views
-        FROM snippets
-        WHERE id = ?`
+        SELECT s.id, user_id, title, description, language, public, code, views, username
+        FROM snippets s
+		INNER JOIN users
+		ON s.user_id = users.id
+        WHERE s.id = ?`
 
-	const { rows, err } = await query<SnippetDetails>(sql, [snippet_id])
+	const { rows, err } = await query<SnippetDetailsWithUser>(sql, [snippet_id])
 
 	if (err) error(500, 'Database error')
 	if (!rows.length) error(404, 'Not Found')

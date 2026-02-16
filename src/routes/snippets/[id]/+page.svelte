@@ -25,6 +25,13 @@
 	}
 </script>
 
+{#if !data.is_owner}
+	<p>
+		A snippet by
+		<strong>{data.snippet.username}</strong>
+	</p>
+{/if}
+
 <header>
 	<h1>{data.snippet.title}</h1>
 
