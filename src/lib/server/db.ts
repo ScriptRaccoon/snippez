@@ -15,3 +15,5 @@ export async function query<T = unknown>(stmt: string, args?: any[]) {
 		return { rows: null, err: err as LibsqlError }
 	}
 }
+
+export const sleep = (delay: number) => new Promise<void>((res) => setTimeout(res, delay))
