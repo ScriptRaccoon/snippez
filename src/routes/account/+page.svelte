@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
+	import FormWrapper from '$lib/components/FormWrapper.svelte'
 
 	let { form } = $props()
 
@@ -16,7 +17,7 @@
 	</strong>.
 </p>
 
-<div class="actions">
+<div class="actions main">
 	<a class="button" href="/auth/logout">Logout</a>
 
 	<button
@@ -32,26 +33,27 @@
 </div>
 
 {#if confirm_deletion}
-	<form method="POST" action="?/delete" class="delete-form">
-		<p>
-			Deleting your account cannot be undone. All your snippets will be deleted as well.
-			Click to confirm.
-		</p>
+	<FormWrapper action="?/delete">
+		{#snippet children(sending)}
+			<p>
+				Deleting your account cannot be undone. All your snippets will be deleted as well.
+			</p>
 
-		<div class="actions">
-			<button
-				type="button"
-				class="button"
-				onclick={() => {
-					confirm_deletion = false
-				}}
-			>
-				Cancel
-			</button>
+			<div class="actions delete-actions">
+				<button
+					type="button"
+					class="button"
+					onclick={() => {
+						confirm_deletion = false
+					}}
+				>
+					Cancel
+				</button>
 
-			<button class="button danger">Yes, delete my account</button>
-		</div>
-	</form>
+				<button class="button danger" disabled={sending}>Yes, delete my account</button>
+			</div>
+		{/snippet}
+	</FormWrapper>
 {/if}
 
 {#if form?.error}
@@ -68,11 +70,7 @@
 		justify-content: space-between;
 	}
 
-	.delete-form {
-		margin-top: 2rem;
-	}
-
-	.delete-form .actions {
+	.delete-actions {
 		flex-direction: row-reverse;
 	}
 </style>

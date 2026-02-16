@@ -1,9 +1,17 @@
+<script module lang="ts">
+	export const is_loading = $state({ value: false })
+</script>
+
 <script lang="ts">
 	import { navigating } from '$app/state'
 	import { fade } from 'svelte/transition'
+
+	$effect(() => {
+		is_loading.value = Boolean(navigating.to)
+	})
 </script>
 
-{#if navigating.to}
+{#if is_loading.value}
 	<div transition:fade={{ duration: 180 }}></div>
 {/if}
 

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { enhance } from '$app/forms'
 	import { allow_tab_inputs, resize_textarea, scroll_here } from '$lib/client/utilts'
+	import FormWrapper from '$lib/components/FormWrapper.svelte'
 	import LanguagesDataList from '$lib/components/LanguagesDataList.svelte'
 	import PublicContainer from '$lib/components/PublicContainer.svelte'
 
@@ -15,95 +15,106 @@
 	<h1>Edit Snippet</h1>
 </header>
 
-<form action="?/update" method="POST" use:enhance>
-	<div class="form-group">
-		<label class="label" for="title">Title</label>
-		<input
-			class="input"
-			type="text"
-			name="title"
-			id="title"
-			required
-			value={data.snippet.title}
-		/>
-	</div>
+<FormWrapper action="?/delete">
+	{#snippet children(sending)}
+		<div class="form-group">
+			<label class="label" for="title">Title</label>
+			<input
+				class="input"
+				type="text"
+				name="title"
+				id="title"
+				required
+				value={data.snippet.title}
+			/>
+		</div>
 
-	<div class="form-group">
-		<label class="label" for="description">Description (optional)</label>
-		<textarea class="input" name="description" id="description" {@attach resize_textarea}
-			>{data.snippet.description}</textarea
-		>
-	</div>
-
-	<div class="form-group">
-		<label class="label" for="language">Language</label>
-		<input
-			class="input code"
-			type="text"
-			name="language"
-			id="language"
-			required
-			value={data.snippet.language}
-			list="languages"
-		/>
-	</div>
-
-	<div class="form-group">
-		<label class="label" for="content">Code</label>
-		<textarea
-			class="input code"
-			name="code"
-			id="code"
-			required
-			{@attach resize_textarea}
-			{@attach allow_tab_inputs}>{data.snippet.code}</textarea
-		>
-	</div>
-
-	<div class="form-group">
-		<input
-			type="checkbox"
-			name="is_public"
-			id="is_public"
-			class="sr-only"
-			bind:checked={is_public}
-		/>
-
-		<PublicContainer bind:is_public />
-	</div>
-
-	<div class="actions main">
-		<button class="button">Update snippet</button>
-
-		<button
-			class="button danger"
-			type="button"
-			onclick={() => {
-				confirm_deletion = true
-			}}
-			disabled={confirm_deletion}
-		>
-			Delete snippet</button
-		>
-	</div>
-</form>
-
-{#if confirm_deletion}
-	<form method="POST" action="?/delete" class="delete-form" {@attach scroll_here}>
-		<p>Are you sure that you want to delete this snippet?</p>
-
-		<div class="actions">
-			<button class="button danger">Yes, delete snippet</button>
-
-			<button
-				type="button"
-				class="button"
-				onclick={() => {
-					confirm_deletion = false
-				}}>Cancel</button
+		<div class="form-group">
+			<label class="label" for="description">Description (optional)</label>
+			<textarea
+				class="input"
+				name="description"
+				id="description"
+				{@attach resize_textarea}>{data.snippet.description}</textarea
 			>
 		</div>
-	</form>
+
+		<div class="form-group">
+			<label class="label" for="language">Language</label>
+			<input
+				class="input code"
+				type="text"
+				name="language"
+				id="language"
+				required
+				value={data.snippet.language}
+				list="languages"
+			/>
+		</div>
+
+		<div class="form-group">
+			<label class="label" for="content">Code</label>
+			<textarea
+				class="input code"
+				name="code"
+				id="code"
+				required
+				{@attach resize_textarea}
+				{@attach allow_tab_inputs}>{data.snippet.code}</textarea
+			>
+		</div>
+
+		<div class="form-group">
+			<input
+				type="checkbox"
+				name="is_public"
+				id="is_public"
+				class="sr-only"
+				bind:checked={is_public}
+			/>
+
+			<PublicContainer bind:is_public />
+		</div>
+
+		<div class="actions main">
+			<button class="button" disabled={sending}>Update snippet</button>
+
+			<button
+				class="button danger"
+				type="button"
+				onclick={() => {
+					confirm_deletion = true
+				}}
+				disabled={confirm_deletion || sending}
+			>
+				Delete snippet
+			</button>
+		</div>
+	{/snippet}
+</FormWrapper>
+
+{#if confirm_deletion}
+	<FormWrapper action="?/delete">
+		{#snippet children(sending)}
+			<div class="delete-form" {@attach scroll_here}>
+				<p>Are you sure that you want to delete this snippet?</p>
+
+				<div class="actions">
+					<button class="button danger" disabled={sending}>Yes, delete snippet</button>
+
+					<button
+						type="button"
+						class="button"
+						onclick={() => {
+							confirm_deletion = false
+						}}
+					>
+						Cancel
+					</button>
+				</div>
+			</div>
+		{/snippet}
+	</FormWrapper>
 {/if}
 
 {#if form?.error}
