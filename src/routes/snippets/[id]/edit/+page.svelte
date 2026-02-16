@@ -32,7 +32,7 @@
 	<div class="form-group">
 		<label class="label" for="language">Language</label>
 		<input
-			class="input"
+			class="input code"
 			type="text"
 			name="language"
 			id="language"
@@ -53,7 +53,7 @@
 
 	<div class="form-group">
 		<label class="label" for="content">Code</label>
-		<textarea class="input" name="code" id="code" required {@attach resize_textarea}
+		<textarea class="input code" name="code" id="code" required {@attach resize_textarea}
 			>{data.snippet.code}</textarea
 		>
 	</div>
