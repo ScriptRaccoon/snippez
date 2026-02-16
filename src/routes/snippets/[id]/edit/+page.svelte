@@ -3,6 +3,8 @@
 	import { resize_textarea } from '$lib/client/utilts'
 
 	let { data, form } = $props()
+
+	let confirm_deletion = $state(false)
 </script>
 
 <header>
@@ -60,8 +62,24 @@
 
 	<div class="actions">
 		<button class="button">Update</button>
-		<button class="button" formaction="?/delete"> Delete snippet</button>
+		{#if confirm_deletion}
+			<button class="button" formaction="?/delete"> Delete snippet</button>
+		{:else}
+			<button
+				class="button"
+				type="button"
+				onclick={() => {
+					confirm_deletion = true
+				}}
+			>
+				Delete snippet</button
+			>
+		{/if}
 	</div>
+
+	{#if confirm_deletion}
+		<p>Are you sure that you want to delete the snippet? Click again to confirm.</p>
+	{/if}
 </form>
 
 {#if form?.error}
