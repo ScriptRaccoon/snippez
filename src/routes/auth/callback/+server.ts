@@ -46,28 +46,23 @@ export const GET = async (event) => {
 
 	const github_user = (await user_res.json()) as GitHubUser
 
-	const { id, login, email } = github_user
+	const { id, login } = github_user
 
 	const sql = `
 		INSERT INTO users
-			(github_id, username, email)
-		VALUES (?, ?, ?)
+			(github_id, username)
+		VALUES (?, ?)
 		ON CONFLICT (github_id) DO UPDATE SET
-			username = excluded.username,
-			email = excluded.email
+			username = excluded.username
 		RETURNING id`
 
-	const { rows, err } = await query<{ id: number }>(sql, [id, login, email])
+	const { rows, err } = await query<{ id: number }>(sql, [id, login])
 
 	if (err || !rows.length) error(500, 'Database error')
 
 	const user_id = rows[0].id
 
-	const payload: JWTPayload = {
-		id: user_id,
-		username: github_user.login,
-		email: github_user.email
-	}
+	const payload: JWTPayload = { id: user_id, username: github_user.login }
 
 	const token = jwt.sign(payload, JWT_SECRET, { expiresIn: '1d' })
 

@@ -10,14 +10,7 @@
 	<h1>Account</h1>
 </header>
 
-<p>Logged in via GitHub</p>
-
-<p>
-	<strong>Username</strong> &ndash;
-	{page.data.user?.username} <br />
-	<strong>Email</strong> &ndash;
-	{page.data.user?.email}
-</p>
+<p>Logged in via GitHub as <strong>{page.data.user?.username}</strong></p>
 
 <p>
 	<a class="button" href="/auth/logout">Logout</a>
