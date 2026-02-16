@@ -15,7 +15,7 @@
 	<h1>Edit Snippet</h1>
 </header>
 
-<FormWrapper action="?/delete">
+<FormWrapper action="?/update">
 	{#snippet children(sending)}
 		<div class="form-group">
 			<label class="label" for="title">Title</label>
