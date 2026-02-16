@@ -88,6 +88,7 @@
 
 	.description {
 		color: var(--secondary-font-color);
+		font-size: 1.125rem;
 	}
 
 	.data {

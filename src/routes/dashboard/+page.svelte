@@ -16,7 +16,7 @@
 		{#each data.snippets as snippet (snippet.id)}
 			<a class="snippet" href="/snippets/{snippet.id}">
 				<header class="header">
-					<span>{snippet.title}</span>
+					<span class="title">{snippet.title}</span>
 					{#if snippet.public}
 						<Globe size={18} />
 					{:else}
@@ -42,6 +42,10 @@
 		padding: 0.75rem;
 		border-radius: 0.5rem;
 
+		.title {
+			font-size: 1.25rem;
+		}
+
 		.header {
 			display: flex;
 			justify-content: space-between;
@@ -51,7 +55,6 @@
 
 		.description {
 			color: var(--secondary-font-color);
-			font-size: 0.875rem;
 		}
 	}
 </style>
