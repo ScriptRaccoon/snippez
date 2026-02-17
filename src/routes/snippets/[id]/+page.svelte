@@ -129,6 +129,10 @@
 			padding: 1rem;
 			border-radius: 0.25rem;
 			scrollbar-width: thin;
+
+			&:focus-visible {
+				outline-color: var(--light-outline-color);
+			}
 		}
 	}
 
