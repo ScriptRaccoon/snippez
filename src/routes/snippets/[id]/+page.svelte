@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
-	import { Globe, Lock, Eye, CheckCheck } from 'lucide-svelte'
+	import { Globe, Lock, Eye, CheckCheck, House } from 'lucide-svelte'
 
 	let { data } = $props()
 
@@ -26,10 +26,15 @@
 </script>
 
 {#if !data.is_owner}
-	<p>
-		A snippet by
-		<strong>{data.snippet.username}</strong>
-	</p>
+	<nav>
+		<div>
+			A snippet by
+			<strong>{data.snippet.username}</strong>
+		</div>
+		<a href="/" aria-label="Homepage">
+			<House size={20} />
+		</a>
+	</nav>
 {/if}
 
 <header>
@@ -84,6 +89,12 @@
 </div>
 
 <style>
+	nav {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding-block: 1rem 0.5rem;
+	}
 	header {
 		display: grid;
 		grid-template-columns: 1fr auto;
