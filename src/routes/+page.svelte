@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/state'
+	import { Github } from 'lucide-svelte'
 </script>
 
 <header>
@@ -7,15 +8,18 @@
 </header>
 
 <main>
-	<p>Create code snippets and share them with others.</p>
-
 	{#if page.data.user}
 		<p>
-			Go to your <a href="/dashboard">dashboard</a>.
+			Welcome back, {page.data.user.username}. Go to your
+			<a href="/dashboard">dashboard</a>.
 		</p>
 	{:else}
-		<p>
-			To get started, <a href="/auth/login">log in with GitHub</a>.
+		<p>Create code snippets and share them with others.</p>
+		<p class="login-link-container">
+			<a href="/auth/login" class="button login-link"
+				>Log in with GitHub
+				<Github size={20} />
+			</a>
 		</p>
 	{/if}
 </main>
@@ -30,6 +34,16 @@
 <style>
 	main {
 		font-size: 1.25rem;
+	}
+
+	.login-link-container {
+		text-align: center;
+	}
+
+	.login-link {
+		display: inline-flex;
+		align-items: center;
+		gap: 0.5rem;
 	}
 
 	footer {
